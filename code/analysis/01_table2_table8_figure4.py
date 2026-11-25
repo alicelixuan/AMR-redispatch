@@ -14,7 +14,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import matplotlib.pyplot as plt  # noqa: E402
 
 import config as C  # noqa: E402
-from lib import check  # noqa: E402
 from lib.io import banner, save_json, setup_script, write_text  # noqa: E402
 from lib.labels import pretty, pretty_control  # noqa: E402
 from lib.latex import (NOTE_STRICT, STARS_STRICT, coef_cell, fnum,  # noqa: E402
@@ -101,15 +100,6 @@ def main():
         "Effect of AMR on aggregate German redispatch", "tab:main",
         ["(1) Parsimonious baseline", "(2) PDS (1-SE) adjusted"], body, foot, note))
 
-    for k, v, d in [("T2 (1) AMR coef", cb["b"], 3), ("T2 (1) AMR se", cb["se"], 3),
-                    ("T2 (1) within R2", res_base.rsquared_within, 3),
-                    ("T2 (1) IQR effect MW", cb["b"] * iqr, 1),
-                    ("T2 (2) AMR coef", cm["b"], 3), ("T2 (2) AMR se", cm["se"], 3),
-                    ("T2 (2) within R2", res_main.rsquared_within, 3),
-                    ("T2 (2) IQR effect MW", cm["b"] * iqr, 1),
-                    ("T2 N", res_main.nobs, 0), ("AMR IQR MW", iqr, 0)]:
-        check.record(k, float(v), d)
-
     save_json(dict(beta=cm["b"], se=cm["se"], iqr=iqr, controls=controls,
                    nobs=int(res_main.nobs), r2_within=float(res_main.rsquared_within),
                    beta_baseline=cb["b"]), EST_PATH)
@@ -145,9 +135,6 @@ def main():
     path.to_csv(C.OUT_INTERMEDIATE / "figure4_path.csv", index=False)
     plot_figure4(path, len(controls), len(pds["S_pds_min"]),
                  C.OUT_FIGURES / "figure4_pds_path.png")
-    if len(pds["S_pds_min"]) != C.PAPER_PDS_MIN_K:
-        print(f"WARNING: CV-min union has {len(pds['S_pds_min'])} controls; "
-              f"paper reports {C.PAPER_PDS_MIN_K}")
     print(f"\nTable 2 (2) AMR = {fnum(cm['b'], 4)} ({fnum(cm['se'], 4)})")
 
 

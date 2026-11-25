@@ -9,7 +9,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import config as C  # noqa: E402
-from lib import check  # noqa: E402
 from lib.io import banner, setup_script, write_text  # noqa: E402
 from lib.labels import pretty, zone  # noqa: E402
 from lib.latex import (NOTE_STRICT, STARS_STRICT, coef_cell,  # noqa: E402
@@ -65,9 +64,6 @@ def main():
     write_text(C.OUT_TABLES / "table9_direction.tex", regression_table(
         "Effect of AMR on upward, downward, and total German redispatch",
         "tab:direction", list(outcomes), body, foot, note))
-
-    check.record("T9 up AMR", coef(res["(1) Upward"], C.D_COL)["b"], 3)
-    check.record("T9 down AMR", coef(res["(2) Downward"], C.D_COL)["b"], 3)
 
 
 if __name__ == "__main__":

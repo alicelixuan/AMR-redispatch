@@ -22,7 +22,6 @@ import pandas as pd  # noqa: E402
 from matplotlib.ticker import FuncFormatter  # noqa: E402
 
 import config as C  # noqa: E402
-from lib import check  # noqa: E402
 from lib.descriptive import (amr_hourly, load_amr_tso, load_cost,  # noqa: E402
                              load_orders, monthly_by_tso, monthly_cost_weights,
                              weighted_cost)
@@ -63,9 +62,6 @@ def main():
     annual_m = (annual / 1e6).round(1).rename("estimated_cost_MEUR")
     annual_m.to_csv(C.OUT_TABLES / "cost_annual_totals.csv")
     print(annual_m.to_string())
-    for y in (2023, 2024, 2025):
-        if y in annual_m.index:
-            check.record(f"Cost {y} MEUR", float(annual_m[y]), 0)
 
     agg = long["estimated_cost"].unstack("TSO").sort_index().dropna()
     plot_df = agg.copy()

@@ -1,8 +1,9 @@
-"""File helpers: format-agnostic reading, output directories, run logging."""
+"""File helpers: format-agnostic reading, output directories, unzipping data."""
 from __future__ import annotations
 
 import json
 import sys
+import zipfile
 from pathlib import Path
 
 import pandas as pd
@@ -47,9 +48,32 @@ def write_any(df: pd.DataFrame, stem: Path | str) -> Path:
 
 
 def ensure_dirs():
-    for d in (C.OUT_TABLES, C.OUT_FIGURES, C.OUT_INTERMEDIATE, C.OUT_LOGS,
+    for d in (C.OUT_TABLES, C.OUT_FIGURES, C.OUT_INTERMEDIATE,
               C.DATA_INTERMEDIATE, C.DATA_ANALYSIS):
         d.mkdir(parents=True, exist_ok=True)
+
+
+def unzip_data():
+    """Extract every data/**/*.zip next to itself, once.
+
+    Large inputs are stored zipped to stay under GitHub's 100 MB file limit,
+    e.g. data/raw/foo.pkl.zip -> data/raw/foo.pkl. Files that already exist
+    are left alone; macOS metadata (__MACOSX/, ._*) is skipped.
+    """
+    for z in sorted((C.ROOT / "data").rglob("*.zip")):
+        with zipfile.ZipFile(z) as zf:
+            for m in zf.infolist():
+                name = Path(m.filename)
+                if m.is_dir() or "__MACOSX" in name.parts or name.name.startswith("._"):
+                    continue
+                target = z.parent / name.name
+                if not target.exists():
+                    print(f"[unzip] {z.relative_to(C.ROOT)} -> {target.relative_to(C.ROOT)}")
+                    tmp = target.with_name(target.name + ".part")
+                    with zf.open(m) as src, tmp.open("wb") as dst:
+                        while chunk := src.read(1 << 24):
+                            dst.write(chunk)
+                    tmp.replace(target)          # never leave a half-written file
 
 
 def write_text(path: Path, text: str):

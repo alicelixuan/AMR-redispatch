@@ -13,10 +13,16 @@ From the package folder, with Python 3.11 or newer:
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-python code/build/b3_jao_amr.py      # JAO AMR by TSO       -> data/analysis/amr_tso
-python code/build/b5_merge_panel.py  # hourly analysis panel -> data/analysis/analysis_panel
-python code/run_all.py               # all tables and figures -> output/
+python code/run_all.py
 ```
+
+This one command runs the whole pipeline:
+
+1. unzips the zipped data files (first run only),
+2. builds the JAO AMR series by TSO (`b3`, -> `data/analysis/amr_tso`) and the
+   hourly analysis panel (`b5`, -> `data/analysis/analysis_panel`),
+3. runs every script in `code/analysis/` and writes all tables and figures to
+   `output/`.
 
 ## Results
 
@@ -41,11 +47,11 @@ plotted numbers are also saved as CSV in `output/tables/`.
 | Location | File | Source |
 |---|---|---|
 | `data/raw/` | `de_lu_weather_data.csv`, `de_lu_radiation_data.csv` | NASA MERRA-2 (M2T1NXFLX): wind speed, temperature, solar irradiance |
-| `data/raw/` | `actual_consumption_generation_control_area.pkl` | SMARD: load and generation by control area, 15-min |
+| `data/raw/` | `actual_consumption_generation_control_area.pkl.zip` (unzipped automatically) | SMARD: load and generation by control area, 15-min |
 | `data/raw/` | `installed_cap_filled.csv` | SMARD: installed capacity by control area |
 | `data/raw/` | `load_neighbor_n_core_mid2022-2025.pkl`, `solar_windon_gen_neighbor.pkl` | ENTSO-E Transparency Platform: neighbour-zone load and generation |
 | `data/raw/` | `kosten-pro-energiemenge.csv` | SMARD / BNetzA: monthly redispatch cost per MWh |
-| `data/intermediate/` | `minRAM.pkl` | JAO Publication Tool: Core final computation, German base-case CNEs (also used directly for Figure 6) |
+| `data/intermediate/` | `minRAM.parquet` | JAO Publication Tool: Core final computation, German base-case CNEs; columns DateTime, Tso, CneEic, Amr, MinRamFactor (also used directly for Figure 6) |
 | `data/analysis/` | `redispatch_orders_15min.pkl` | Netztransparenz: redispatch orders, one row per active quarter-hour |
 
 `b3` writes `data/analysis/amr_tso` and `b5` writes
@@ -57,7 +63,7 @@ plotted numbers are also saved as CSV in `output/tables/`.
 |---|---|
 | `b1_redispatch_timeseries.py` | `data/raw/Redispatch_Daten.csv` (Netztransparenz export) → `redispatch_orders_15min` |
 | `b2_jao_download.py` | downloads JAO final-computation files to `data/raw/final_computation_<year>/` |
-| `b3_jao_amr.py` | uses `data/intermediate/minRAM.pkl` if present, otherwise the `b2` downloads |
+| `b3_jao_amr.py` | uses `data/intermediate/minRAM.parquet` if present, otherwise the `b2` downloads |
 | `b4_entsoe_download.py` | downloads the two ENTSO-E files; needs `ENTSOE_API_KEY` in the environment |
 | `b5_merge_panel.py` | merges everything into the hourly panel |
 

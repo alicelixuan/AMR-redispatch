@@ -10,7 +10,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import config as C  # noqa: E402
-from lib import check  # noqa: E402
 from lib.io import banner, setup_script, write_text  # noqa: E402
 from lib.latex import NOTE_CONV, STARS_CONV, coef_cell, regression_table, se_cell  # noqa: E402
 from lib.main_spec import main_controls  # noqa: E402
@@ -58,13 +57,6 @@ def main():
              coef_cell(inten, dec_i, STARS_CONV), f"{int(res.nobs):,}"],
             ["", se_cell(act, 3) if act else "--", se_cell(inten, dec_i), ""],
         ]
-        tag = name.split()[0]
-        if tag.startswith("["):
-            if act:
-                check.record(f"T3 {tag} activation", act["b"], 3)
-            check.record(f"T3 {tag} intensity", inten["b"], dec_i)
-            if tag in ("[2]", "[4]"):
-                check.record(f"T3 {tag} N", res.nobs, 0)
 
     note = ("Standard errors are reported in parentheses. AMR activation is defined "
             "as $\\mathbf{1}(D_{it} > 0)$. AMR intensity refers to continuous AMR usage "

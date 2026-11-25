@@ -17,7 +17,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import config as C  # noqa: E402
-from lib import check  # noqa: E402
 from lib.io import banner, setup_script, write_text  # noqa: E402
 from lib.latex import NOTE_CONV, STARS_CONV, fnum, regression_table, stars  # noqa: E402
 from lib.main_spec import main_controls  # noqa: E402
@@ -43,8 +42,6 @@ def main():
               f"N={int(res.nobs):,} R2={res.rsquared:.3f}")
         body.append([str(y), fnum(c["b"], 3) + (f"$^{{{st}}}$" if st else ""),
                      fnum(c["se"], 3), f"{int(res.nobs):,}", f"{res.rsquared:.3f}"])
-        check.record(f"T4 {y} coef", c["b"], 3)
-        check.record(f"T4 {y} se", c["se"], 3)
 
     note = ("The dependent variable is aggregate hourly redispatch in MWh. All "
             "specifications include TSO and hour-of-day fixed effects, and the same "

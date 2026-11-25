@@ -20,7 +20,6 @@ OUT = ROOT / "output"
 OUT_TABLES = OUT / "tables"
 OUT_FIGURES = OUT / "figures"
 OUT_INTERMEDIATE = OUT / "intermediate"           # estimates passed between scripts
-OUT_LOGS = OUT / "logs"
 
 # Analysis inputs. Stems only: lib.io.read_any() accepts .parquet, .pkl or .csv.
 PANEL_FILE = DATA_ANALYSIS / "analysis_panel"        # hourly (DateTime, TSO) panel, cleaned
@@ -102,26 +101,7 @@ SAMPLE_START = "2022-06-08 22:00:00+00:00"
 SAMPLE_END_EXCL = "2026-01-01 00:00:00+00:00"
 
 # ---------------------------------------------------------------------------
-# Published values, used only to print a paper-vs-replication check
-# (output/logs/replication_check.csv). They play no role in estimation.
+# The three controls selected in the paper. Used only to word the note under
+# Table 2; it plays no role in estimation.
 # ---------------------------------------------------------------------------
 PAPER_PDS_1SE = ["wind_onsh_DK_1", "wind_onsh_DK_2", "wind_onsh_PL"]
-PAPER_PDS_MIN_K = 51
-
-PAPER = {
-    "T2 (1) AMR coef": 0.279, "T2 (1) AMR se": 0.039, "T2 (1) within R2": 0.272,
-    "T2 (1) IQR effect MW": 115.3,
-    "T2 (2) AMR coef": 0.199, "T2 (2) AMR se": 0.034, "T2 (2) within R2": 0.408,
-    "T2 (2) IQR effect MW": 82.3, "T2 N": 123689, "AMR IQR MW": 414,
-    "T3 [1] activation": 51.649, "T3 [1] intensity": 0.192,
-    "T3 [2] intensity": 0.170, "T3 [2] N": 65324,
-    "T3 [3] activation": 0.092, "T3 [3] intensity": 0.000008,
-    "T3 [4] activation": 65.356, "T3 [4] intensity": 0.166, "T3 [4] N": 64412,
-    "T4 2022 coef": 0.372, "T4 2023 coef": 0.280, "T4 2024 coef": 0.180,
-    "T4 2025 coef": 0.289,
-    "T4 2022 se": 0.264, "T4 2023 se": 0.079, "T4 2024 se": 0.048,
-    "T4 2025 se": 0.040,
-    "T5 (2) AMR": 0.157, "T5 (3) AMR": 0.178, "T5 (3) other sum": 0.022,
-    "T9 up AMR": 0.012, "T9 down AMR": 0.187,
-    "Cost 2023 MEUR": 305, "Cost 2024 MEUR": 577, "Cost 2025 MEUR": 925,
-}

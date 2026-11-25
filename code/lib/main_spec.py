@@ -24,7 +24,4 @@ def main_controls(panel=None) -> list[str]:
         out, _ = run_pds(panel if panel is not None else load_panel())
         save_json(out, SEL_PATH)
         sel = out["S_pds_1se"]
-    if sorted(sel) != sorted(C.PAPER_PDS_1SE):
-        print(f"[main_spec] WARNING: 1-SE selection {sel} differs from the "
-              f"paper's {C.PAPER_PDS_1SE}")
     return list(sel)

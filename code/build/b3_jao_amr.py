@@ -41,8 +41,8 @@ def compile_year(year):
 
 def main():
     try:
-        # Shortcut: an existing minRAM file (e.g. data/processed/minRAM.pkl from
-        # the original project) placed in data/intermediate/.
+        # Default: the shipped data/intermediate/minRAM.parquet (the columns
+        # DateTime, Tso, CneEic, Amr, MinRamFactor of the full JAO extract).
         mr = read_any(C.DATA_INTERMEDIATE / "minRAM")
         print("[b3] using existing data/intermediate/minRAM")
     except FileNotFoundError:

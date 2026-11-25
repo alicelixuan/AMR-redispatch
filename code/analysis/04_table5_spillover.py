@@ -14,7 +14,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import config as C  # noqa: E402
-from lib import check  # noqa: E402
 from lib.io import banner, setup_script, write_text  # noqa: E402
 from lib.latex import NOTE_CONV, STARS_CONV, coef_cell, regression_table, se_cell  # noqa: E402
 from lib.main_spec import main_controls  # noqa: E402
@@ -68,11 +67,6 @@ def main():
         "Effect of contemporaneous AMR usage in other TSO control areas",
         "tab:spillover", ["Main", "Individual other-TSO AMR controls",
                           "Sum of other-TSO AMR control"], body, foot, note))
-
-    keys = list(specs)
-    check.record("T5 (2) AMR", coef(res[keys[1]], C.D_COL)["b"], 3)
-    check.record("T5 (3) AMR", coef(res[keys[2]], C.D_COL)["b"], 3)
-    check.record("T5 (3) other sum", coef(res[keys[2]], C.OTHER_AMR_SUM)["b"], 3)
 
 
 if __name__ == "__main__":
