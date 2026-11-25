@@ -17,13 +17,6 @@ Outputs
 Source: notebook "5 - Trade_on_redispatch.ipynb", cells 15-20, 31, 83-90,
 98-99, 105, 110-112. The fuel-price join of cell 105 is omitted: fuel data end
 in 2024 and the published panel runs to December 2025.
-
-Hourly aggregation (config.HOURLY_AGGREGATION):
-  "top_of_hour"  default, reproduces the paper (N = 123,689). The hourly JAO
-                 index left-joins the 15-min data, so each hour carries the
-                 value of its first quarter-hour.
-  "mean"         alternative: every quarter-hourly series is averaged over the
-                 hour before the join (redispatch = MWh in the hour).
 """
 import sys
 from pathlib import Path
