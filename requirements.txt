@@ -1,0 +1,13 @@
+# Analysis (tested with the versions in brackets, Python 3.13)
+pandas>=2.2          # [3.0.5]
+numpy>=1.26          # [2.5.3]
+scikit-learn>=1.5    # [1.9.1]  LassoCV / lasso_path; grid identical across versions
+linearmodels>=6.0    # [7.1]    PanelOLS with Driscoll-Kraay (kernel) covariance
+statsmodels>=0.14    # [0.15.0] dependency of linearmodels
+scipy>=1.11          # [1.18.1]
+matplotlib>=3.8      # [3.11.2]
+pyarrow>=14          # [26.0.1] optional: read/write .parquet inputs
+
+# Data build only (build/)
+requests>=2.31
+entsoe-py>=0.6
