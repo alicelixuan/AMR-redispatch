@@ -5,7 +5,7 @@ The code and data in this repository replicate the analysis in
 > Xu, A. L., 2026: The congestion cost of electricity trade: Empirical evidence from German redispatch.
 
 
-## How to run
+## Quick start
 
 From the package folder, with Python 3.11 or newer:
 
@@ -73,5 +73,4 @@ All data are public: JAO Publication Tool (publicationtool.jao.eu),
 Netztransparenz (netztransparenz.de), SMARD / Bundesnetzagentur (smard.de),
 ENTSO-E Transparency Platform (transparency.entsoe.eu; free registration for
 API access), NASA MERRA-2 (data.nasa.gov). Full citations are in the paper.
-Check each provider's terms of use before redistributing the extracts.
 
