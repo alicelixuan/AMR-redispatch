@@ -1,0 +1,16 @@
+# Python / macOS
+.venv/
+__pycache__/
+.DS_Store
+
+# Unzipped copy of zipped data (recreated by code/run_all.py)
+data/raw/actual_consumption_generation_control_area.pkl
+
+# Built by code/run_all.py
+data/analysis/amr_tso.*
+data/analysis/analysis_panel.*
+data/intermediate/panel_unclean.*
+output/intermediate/*
+output/tables/*
+output/figures/*
+!output/*/.gitkeep
