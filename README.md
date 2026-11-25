@@ -54,9 +54,6 @@ plotted numbers are also saved as CSV in `output/tables/`.
 | `data/intermediate/` | `minRAM.parquet` | JAO Publication Tool: Core final computation, German base-case CNEs; columns DateTime, Tso, CneEic, Amr, MinRamFactor (also used directly for Figure 6) |
 | `data/analysis/` | `redispatch_orders_15min.pkl` | Netztransparenz: redispatch orders, one row per active quarter-hour |
 
-`b3` writes `data/analysis/amr_tso` and `b5` writes
-`data/analysis/analysis_panel`, the estimation sample.
-
 ### Rebuilding from the original downloads (optional)
 
 | Script (`code/build/`) | Does |
